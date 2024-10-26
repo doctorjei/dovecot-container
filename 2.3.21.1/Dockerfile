@@ -3,7 +3,10 @@ FROM debian:11-slim
 LABEL org.opencontainers.image.authors="dovecot@dovecot.org"
 
 ENV container=docker \
+    PUID=1000 \
+    PGID=1000 \
     LC_ALL=C
+    
 ARG DEBIAN_FRONTEND=noninteractive
 
 ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
@@ -15,7 +18,6 @@ RUN apt-get -y update && apt-get -y install \
   dovecot-gssapi \
   dovecot-imapd \
   dovecot-ldap \
-  dovecot-lmtpd \
   dovecot-lua \
   dovecot-managesieved \
   dovecot-mysql \
@@ -24,12 +26,11 @@ RUN apt-get -y update && apt-get -y install \
   dovecot-sieve \
   dovecot-solr \
   dovecot-sqlite \
-  dovecot-submissiond \
   ca-certificates \
   ssl-cert && \
   rm -rf /var/lib/apt/lists && \
   groupadd -g 1000 vmail && \
-  useradd -u 1000 -g 1000 vmail -d /srv/vmail && \
+  useradd -u ${PUID} -g ${PGID} vmail -d /srv/vmail && \
   passwd -l vmail && \
   rm -rf /etc/dovecot && \
   mkdir /srv/mail && \
