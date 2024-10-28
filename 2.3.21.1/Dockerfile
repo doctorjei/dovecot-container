@@ -15,17 +15,20 @@ ADD dovecot.list /etc/apt/sources.list.d
 RUN apt-get -y update && apt-get -y install \
   tini \
   dovecot-core \
+  dovecot-fts-xapian \
   dovecot-gssapi \
   dovecot-imapd \
   dovecot-ldap \
+  dovecot-lmtpd \
   dovecot-lua \
   dovecot-managesieved \
   dovecot-mysql \
   dovecot-pgsql \
-  dovecot-pop3d \
+#  dovecot-pop3d \
   dovecot-sieve \
-  dovecot-solr \
   dovecot-sqlite \
+  dovecot-submissiond \
+  mupdf-tools \
   ca-certificates \
   ssl-cert && \
   rm -rf /var/lib/apt/lists && \
@@ -40,6 +43,7 @@ RUN apt-get -y update && apt-get -y install \
   ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/dovecot/cert.pem && \
   ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/key.pem
 
+COPY --chmod=755 decode2text.sh /usr/libexec/dovecot
 ADD dovecot.conf /etc/dovecot/dovecot.conf
 
 EXPOSE 24
