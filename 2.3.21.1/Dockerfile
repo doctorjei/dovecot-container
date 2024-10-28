@@ -9,8 +9,8 @@ ENV container=docker \
     
 ARG DEBIAN_FRONTEND=noninteractive
 
-ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
-ADD dovecot.list /etc/apt/sources.list.d
+#ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
+#ADD dovecot.list /etc/apt/sources.list.d
 
 RUN apt -y update && apt -y install \
   tini \
