@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
 ADD dovecot.list /etc/apt/sources.list.d
 
-RUN apt-get -y update && apt-get -y install \
+RUN apt -y update && apt -y install \
   tini \
   dovecot-core \
   dovecot-fts-xapian \
