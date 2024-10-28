@@ -1,6 +1,6 @@
-FROM debian:11-slim
+FROM debian:12-slim
 
-LABEL org.opencontainers.image.authors="dovecot@dovecot.org"
+LABEL org.opencontainers.image.authors="dovecot@dovecot.org, jjb@eng.ufl.edu"
 
 ENV container=docker \
     PUID=1000 \
@@ -8,9 +8,6 @@ ENV container=docker \
     LC_ALL=C
     
 ARG DEBIAN_FRONTEND=noninteractive
-
-#ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
-#ADD dovecot.list /etc/apt/sources.list.d
 
 RUN apt -y update && apt -y install \
   tini \
@@ -20,11 +17,9 @@ RUN apt -y update && apt -y install \
   dovecot-imapd \
   dovecot-ldap \
   dovecot-lmtpd \
-  dovecot-lua \
   dovecot-managesieved \
   dovecot-mysql \
   dovecot-pgsql \
-#  dovecot-pop3d \
   dovecot-sieve \
   dovecot-sqlite \
   dovecot-submissiond \
